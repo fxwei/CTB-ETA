@@ -24,6 +24,9 @@
     background: grey; 
   }
 
+*{
+  background-color: #eee;
+}
 
 table {
     border-collapse: collapse;
@@ -60,33 +63,37 @@ thead tr{
 
 tbody{
     display: block;
-    height:450px;margin:auto;
+    height:450px;
+    margin:auto;
     width:max-content;
     overflow-y:auto;
 }
 
+#timestamp{
+  background: none;
+  font-size: 18px;
+}
 
 td {
     padding:4px;
     font-family: Digital, sans-serif;
     font-size: 24px;
-    background-color: papayawhip;
-    border: 3px solid white;
+    background-color: #dcf;
+    border: 3px solid #eee;
     text-align: center;
     font-weight: bold;
     min-width: 100px;
 }
 
 #display{
-    border: 2px solid #226;
+    border: 2px solid;
     font-size:0px;
-    text-align: left;
+    text-align: center;
     background-color: white;
-    color: #226;
     font-size: 20pt;
     min-width: 300px;
-    padding-left:15px;
-    padding-right:15px;
+    padding-left:20px;
+    padding-right:20px;
 }
 
 .selected{
@@ -94,8 +101,7 @@ td {
 }
 
 #routeNo {
-    border: 2px solid #226;
-    background-color: #226;
+    border: 2px solid;
     font-size: 28pt;
     text-align: center;
     color: white;

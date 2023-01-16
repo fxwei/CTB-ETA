@@ -2,8 +2,11 @@ const urlParams = new URLSearchParams(window.location.search);
 
 var route = urlParams.get('route');
 var dir= urlParams.get('dir');
-var company;
+var timestamp = document.getElementById("timestamp");
+var company = routeList[route]["company"];
 var active="";
+
+var list = {};
 
 // ** Get the routes of a bus company **
 // https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/${company}
@@ -16,38 +19,6 @@ var active="";
 
 // ** Get the ETA of a route at a bus stop**
 // https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/${company}/${stop}/${route}
-
-function getCompany(route){
-    return fetch(`https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/NWFB/${route}`)
-        .then(res => {
-            return res.json();
-            }).then(resJSON => {
-                if(Object.keys(resJSON['data']).length === 0)
-                    return "CTB";
-                else
-                    return "NWFB";
-            });
-    }
-
-function getRoutes(company){
-    return fetch(`https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/${company}`)
-        .then(res => {
-            return res.json();
-            }).then(resJSON => {
-                list = [];
-                for (routeInfo of resJSON['data']) {
-                    list.push({
-                        "route": routeInfo['route'],
-                        "company": company
-                        /*
-                        "orig": routeInfo['orig_tc'],
-                        "dest": routeInfo['dest_tc']*/
-                    });
-                }
-                return list;
-            });
-    }
-
 
 function getList(company, route, dir){
     return fetch(`https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route-stop/${company}/${route}/${dir}`)
@@ -98,6 +69,8 @@ async function writeList(list, company, route, dir){
         })
         */
     }
+    genTimestamp();
+
 }
 
 function enquire(item){
@@ -132,27 +105,33 @@ function enquire(item){
                     i=i+1;
                 }
             }
-        })
+        }).then(()=>genTimestamp())
 }
 
-function writeDisplay(company, route, dir){
+function writeDisplay(route, dir){
     let board = document.getElementById("routeNo");
     let display = document.getElementById("display");
+    let orig = routeList[route]["orig"], dest = routeList[route]["dest"];
+    let theme = routeList[route]["theme"];
     board.innerText=route;
-    fetch(`https://rt.data.gov.hk/v1/transport/citybus-nwfb/route/${company}/${route}`)
-    .then(res => {
-        return res.json();
-        }).then(resJSON => {
-            if(dir=="outbound")
-                display.innerText = `${resJSON['data']['orig_tc']} → ${resJSON['data']['dest_tc']}`;
-            else
-                display.innerText = `${resJSON['data']['dest_tc']} → ${resJSON['data']['orig_tc']}`;
-        });
+
+    if(dir=="outbound")
+        display.innerText = `${orig} → ${dest}`;
+    else
+        display.innerText = `${dest} → ${orig}`;
+
+    board.style.backgroundColor=theme;
+    board.style.borderColor=theme;
+    display.style.borderColor=theme;
+    display.style.color=theme;
 }
-var dict = getCompany(route).then(comp => {
-    company = comp;
-    writeDisplay(comp, route, dir);
-    return getList(comp, route, dir);
-}).then(res => {
+
+function genTimestamp(){
+    let time = new Date(); 
+    timestamp.innerHTML = `${('0' + time.getHours()).slice(-2)}:${('0' + time.getMinutes()).slice(-2)}:${('0' + time.getSeconds()).slice(-2)}`;
+}
+
+writeDisplay(route, dir);
+var dict = getList(company, route, dir).then(res => {
     writeList(res, company, route, dir);
 });
