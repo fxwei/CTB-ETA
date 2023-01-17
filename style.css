@@ -97,6 +97,14 @@ button:hover, .route:hover{
     cursor: pointer;
 }
 
+td button.dir{
+  text-align: center;
+  border:1px solid grey;
+  background-color: #ddd;
+  margin:5px 0px;
+  display: inline;
+}
+
 #eta>thead>tr{
     display:block;
     margin:auto;
@@ -140,7 +148,7 @@ td {
     padding:4px;
     font-family: Digital, sans-serif;
     font-size: 24px;
-    background-color: #dcf;
+    background-color: #dde;
     text-align: center;
     font-weight: bold;
     min-width: 100px;

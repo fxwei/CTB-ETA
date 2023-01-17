@@ -159,9 +159,9 @@ function genRoute(){
 function genDir(route){
     writeDisplay(route, "");
     let orig = routeList[route]["orig"], dest = routeList[route]["dest"];
+    let td = document.createElement("td");
+        td.setAttribute("colspan", "4");
     for(dir of ["outbound","inbound"]){
-        let td = document.createElement("td");
-        td.setAttribute("colspan", "2");
         let but= document.createElement("button");
         but.setAttribute("class", `dir`);
         but.setAttribute("onclick",`window.location.search = 'route=${route}&dir=${dir}';`)
@@ -171,8 +171,8 @@ function genDir(route){
         else if(dir=="inbound")
             but.innerText = `${dest} → ${orig}`;
         td.appendChild(but);
-        select.appendChild(td);
     }
+    select.appendChild(td);
 
 }
 
