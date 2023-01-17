@@ -28,13 +28,22 @@
   background-color: #eee;
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0px;
-    margin:auto;
-    width:auto;
-    min-width:650px;
-    max-width:850px;
+#eta{
+  border-collapse: separate;
+  border-spacing: 5px;
+  margin:auto;
+  width:auto;
+  min-width:650px;
+  max-width:850px;
+}
+
+.dis{
+  border-collapse: collapse;
+  border-spacing: 0px;
+  width: 100%;
+  height: 100%;
+  padding:0;
+  margin:0;
 }
 
 button{
@@ -54,24 +63,42 @@ button:hover{
     cursor: pointer;
 }
 
-thead tr{
+#eta>thead>tr{
     display:block;
     margin:auto;
     width:max-content;
 }
 
+#timestamp b{
+  font-size: 16px;
+  font-weight: inherit;
+  color:inherit;
+  background-color: inherit;
+}
 
-tbody{
+#routeNo b{
+  font-size: 28px;
+  color:inherit;
+  background-color: inherit;
+}
+
+#eta>tbody{
     display: block;
-    height:450px;
+    height:600px;
     margin:auto;
     width:max-content;
     overflow-y:auto;
 }
 
 #timestamp{
-  background: none;
-  font-size: 18px;
+  font-weight: lighter;
+  padding:1px 10px;
+  border: 2px solid #555;
+  font-family: Digital, sans-serif;
+  font-size: 24px;
+  height: 48px;
+  background-color: #555;
+  color:white;
 }
 
 td {
@@ -79,21 +106,22 @@ td {
     font-family: Digital, sans-serif;
     font-size: 24px;
     background-color: #dcf;
-    border: 3px solid #eee;
     text-align: center;
     font-weight: bold;
     min-width: 100px;
 }
 
 #display{
-    border: 2px solid;
+    border: 2px solid #555;
     font-size:0px;
     text-align: center;
     background-color: white;
-    font-size: 20pt;
-    min-width: 300px;
+    font-size: 24px;
+    min-width: 250px;
+    height: 48px;
     padding-left:20px;
     padding-right:20px;
+    border-spacing: 0px;
 }
 
 .selected{
@@ -101,11 +129,14 @@ td {
 }
 
 #routeNo {
-    border: 2px solid;
-    font-size: 28pt;
+    border: 2px solid #555;
+    font-size: 36px;
+    font-weight: lighter;
     text-align: center;
     color: white;
+    background-color: #555;
     font-family: Johnston, serif;
     min-width: 100px;
     max-width: 250px;
+    border-spacing: 0px;
 }

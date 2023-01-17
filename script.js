@@ -113,7 +113,11 @@ function writeDisplay(route, dir){
     let display = document.getElementById("display");
     let orig = routeList[route]["orig"], dest = routeList[route]["dest"];
     let theme = routeList[route]["theme"];
-    board.innerText=route;
+    let dispRoute = route;
+    if (route[route.length - 1].toLowerCase()!=route[route.length - 1].toUpperCase()){
+        dispRoute = route.slice(0,-1)+`<b>${route[route.length - 1]}</b>`;
+    }
+    board.innerHTML=dispRoute;
 
     if(dir=="outbound")
         display.innerText = `${orig} → ${dest}`;
@@ -128,7 +132,7 @@ function writeDisplay(route, dir){
 
 function genTimestamp(){
     let time = new Date(); 
-    timestamp.innerHTML = `${('0' + time.getHours()).slice(-2)}:${('0' + time.getMinutes()).slice(-2)}:${('0' + time.getSeconds()).slice(-2)}`;
+    timestamp.innerHTML = `${('0' + time.getHours()).slice(-2)}:${('0' + time.getMinutes()).slice(-2)}<b> ${('0' + time.getSeconds()).slice(-2)}</b>`;
 }
 
 writeDisplay(route, dir);
