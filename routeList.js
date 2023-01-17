@@ -736,7 +736,7 @@ var routeList = {'1': {'company': 'CTB', 'theme': '#0080FF', 'orig': '摩星嶺'
   'orig': '大埔頭',
   'dest': '灣仔 (會議展覽中心)'},
  '914': {'company': 'NWFB', 'theme': '#009140', 'orig': '天后站', 'dest': '海麗邨'},
- '914P': {'company': 'NWFB', 'theme': '#008000', 'orig': '海麗邨', 'dest': '天后站'},
+ '914P': {'company': 'NWFB', 'theme': '#009140', 'orig': '海麗邨', 'dest': '天后站'},
  '914X': {'company': 'NWFB', 'theme': '#009140', 'orig': '海麗邨', 'dest': '天后站'},
  '930': {'company': 'CTB',
   'theme': '#009140',
