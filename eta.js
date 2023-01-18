@@ -75,7 +75,11 @@ async function writeList(list, company, route, dir){
 
 }
 
-function enquire(item){
+function enquire(item=""){
+    /*if (item=="")
+        item = active;
+    if (item=="")
+        return;*/
     fetch(`https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/eta/${company}/${item}/${route}`)
         .then(res => {
             return res.json();
@@ -101,14 +105,18 @@ function enquire(item){
                 //console.log(row);
                 if (({"inbound":"I", "outbound":"O"})[dir]==s["dir"]){
                     let T = new Date(s['eta']);
-                    let t = [`0${(T.getHours())%24}`.slice(-2),`0${T.getMinutes()}`.slice(-2)]
+                    let t = [`0${(T.getHours())%24}`.slice(-2),`0${T.getMinutes()}`.slice(-2), `0${T.getSeconds()}`.slice(-2)]
                     row.children[i].innerHTML=`${t[0]}:${t[1]}`;
+                    //row.children[i].innerHTML=`${t[0]}:${t[1]}<b> ${t[2]}</b>`;
                     row.children[i].classList.add("selected");
                     i=i+1;
                 }
             }
-        }).then(()=>genTimestamp())
+        }).then(()=>{
+            genTimestamp();
+        })
 }
+
 
 function writeDisplay(route, dir){
     let board = document.getElementById("routeNo");
