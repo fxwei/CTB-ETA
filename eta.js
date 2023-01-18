@@ -43,7 +43,11 @@ async function writeList(list, company, route, dir){
         .then(stop=>{
             let row = document.createElement("tr");
             row.setAttribute("id", `tr${item}`);
-            row.innerHTML = `<td><button onclick='enquire("${item}");'>${stop['data']['name_tc'].split(',')[0]}</button></td><td></td><td></td><td></td>`;
+            let segments = stop['data']['name_tc'].split(',');
+            let road="";
+            if(segments.length>1)
+                road=`<b>${segments[1]}</b>`;
+            row.innerHTML = `<td><button onclick='enquire("${item}");'>${road} ${segments[0]}</button></td><td></td><td></td><td></td>`;
             table.appendChild(row);
         });
         /*
