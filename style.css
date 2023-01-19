@@ -103,6 +103,7 @@ td button.dir{
   background-color: #ddd;
   margin:5px 0px;
   padding:10px 0px;
+  border-radius: 6px;
   display: inline;
 }
 
@@ -119,11 +120,18 @@ td button.dir{
   background-color: inherit;
 }
 
+td i{
+  color: #777;
+  background-color: inherit;
+  font-size: 14px;
+  font-style: normal;
+}
+
 button b{
   font-size: 11px;
   font-weight: lighter;
-  color:#aaa;
-  background-color: inherit;
+  color:#999;
+  background-color: rgba(0,0,0,0);
 }
 
 #routeNo b, .route b{

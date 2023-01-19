@@ -104,10 +104,14 @@ function enquire(item=""){
             for(s of stop['data']){
                 //console.log(row);
                 if (({"inbound":"I", "outbound":"O"})[dir]==s["dir"]){
-                    let T = new Date(s['eta']);
-                    let t = [`0${(T.getHours())%24}`.slice(-2),`0${T.getMinutes()}`.slice(-2), `0${T.getSeconds()}`.slice(-2)]
-                    row.children[i].innerHTML=`${t[0]}:${t[1]}`;
-                    //row.children[i].innerHTML=`${t[0]}:${t[1]}<b> ${t[2]}</b>`;
+                    if(s['eta']!=""){
+                        let T = new Date(s['eta']);
+                        let t = [`0${(T.getHours())%24}`.slice(-2),`0${T.getMinutes()}`.slice(-2), `0${T.getSeconds()}`.slice(-2)]
+                        row.children[i].innerHTML=`${t[0]}:${t[1]}`;
+                         //row.children[i].innerHTML=`${t[0]}:${t[1]}<b> ${t[2]}</b>`;
+                    } else {
+                        row.children[i].innerHTML=`<i>${s['rmk_tc']}</i>`;
+                    }
                     row.children[i].classList.add("selected");
                     i=i+1;
                 }
@@ -169,6 +173,11 @@ function genRoute(){
 }
 
 function genDir(route){
+    let mode = routeList[route]["mode"];
+    if(mode.length==1){
+        window.location.search = `route=${route}&dir=${({"i":"inbound", "o":"outbound"})[mode]}`;
+        return;
+    }
     writeDisplay(route, "");
     let orig = routeList[route]["orig"], dest = routeList[route]["dest"];
     let td = document.createElement("td");
@@ -189,10 +198,20 @@ function genDir(route){
 }
 
 function genTable(route, dir){
+    let mode = routeList[route]["mode"];
+    if(mode.length==1){
+        if (mode != dir[0]){
+            window.location.search = `route=${route}&dir=${({"i":"inbound", "o":"outbound"})[mode]}`;
+            return;
+        }
+    }
     company = routeList[route]["company"];
     select.style.display = "none";
     table.style.display = "initial";
-    switcher.style.display = "inline-block";
+    if(mode.length==2){
+        switcher.style.display = "inline-block";
+    }
+    
     writeDisplay(route, dir);
     var dict = getList(company, route, dir).then(res => {
         writeList(res, company, route, dir);
